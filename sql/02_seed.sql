@@ -1,0 +1,116 @@
+-- Day 1 sample data. Fictional customers; illustrative prices in GHS.
+-- Run ONCE after 01_schema.sql in a fresh database: item IDs assume this insert order.
+-- Relative dates keep the last-30-days query useful whenever setup runs.
+BEGIN;
+
+-- Intentional missing email: customer 5.
+-- Intentional duplicate person: customers 1 and 10 share name and email.
+-- Different primary keys keep these as separate rows for the Day 3 cleanup exercise.
+INSERT INTO customers (first_name, last_name, email, city, created_at) VALUES
+    ('Ama', 'Mensah', 'ama.mensah@example.com', 'Accra', CURRENT_DATE - 100),
+    ('Kwame', 'Boateng', 'kwame.boateng@example.com', 'Kumasi', CURRENT_DATE - 95),
+    ('Abena', 'Owusu', 'abena.owusu@example.com', 'Tema', CURRENT_DATE - 90),
+    ('Kofi', 'Asante', 'kofi.asante@example.com', 'Cape Coast', CURRENT_DATE - 85),
+    ('Akosua', 'Addo', NULL, 'Accra', CURRENT_DATE - 80),
+    ('Yaw', 'Osei', 'yaw.osei@example.com', 'Takoradi', CURRENT_DATE - 75),
+    ('Esi', 'Arthur', 'esi.arthur@example.com', 'Accra', CURRENT_DATE - 70),
+    ('Kojo', 'Appiah', 'kojo.appiah@example.com', 'Kumasi', CURRENT_DATE - 65),
+    ('Afia', 'Darko', 'afia.darko@example.com', 'Tamale', CURRENT_DATE - 10),
+    ('Ama', 'Mensah', 'ama.mensah@example.com', 'Accra', CURRENT_DATE - 5);
+
+INSERT INTO products (name, brand, concentration, size_ml, price, stock_quantity) VALUES
+    ('Sauvage', 'Dior', 'Eau de Parfum', 100, 1800.00, 12),
+    ('Bleu de Chanel', 'Chanel', 'Eau de Parfum', 100, 2200.00, 8),
+    ('Libre', 'Yves Saint Laurent', 'Eau de Parfum', 90, 1950.00, 10),
+    ('La Vie Est Belle', 'Lancome', 'Eau de Parfum', 75, 1650.00, 14),
+    ('Eros', 'Versace', 'Eau de Toilette', 100, 1200.00, 18),
+    ('Acqua di Gio', 'Giorgio Armani', 'Eau de Toilette', 100, 1450.00, 15),
+    ('Baccarat Rouge 540', 'Maison Francis Kurkdjian', 'Eau de Parfum', 70, 4200.00, 5),
+    ('Oud for Glory', 'Lattafa', 'Eau de Parfum', 100, 450.00, 30),
+    ('Club de Nuit Intense Man', 'Armaf', 'Eau de Toilette', 105, 650.00, 24),
+    ('Khamrah', 'Lattafa', 'Eau de Parfum', 100, 550.00, 22),
+    ('Sauvage', 'Dior', 'Eau de Parfum', 60, 1300.00, 16),
+    ('Good Girl', 'Carolina Herrera', 'Eau de Parfum', 80, 1850.00, 11),
+    ('Light Blue', 'Dolce & Gabbana', 'Eau de Toilette', 100, 1100.00, 20),
+    ('No. 5', 'Chanel', 'Eau de Parfum', 100, 2350.00, 7),
+    ('Yara', 'Lattafa', 'Eau de Parfum', 100, 400.00, 28);
+
+-- Customers 9 and 10 have no orders, useful for the Day 3 LEFT JOIN exercise.
+INSERT INTO orders (customer_id, order_date, status) VALUES
+    (1, CURRENT_DATE - 65, 'delivered'),
+    (2, CURRENT_DATE - 56, 'delivered'),
+    (3, CURRENT_DATE - 54, 'delivered'),
+    (4, CURRENT_DATE - 52, 'delivered'),
+    (5, CURRENT_DATE - 50, 'delivered'),
+    (6, CURRENT_DATE - 48, 'delivered'),
+    (7, CURRENT_DATE - 46, 'delivered'),
+    (8, CURRENT_DATE - 44, 'cancelled'),
+    (1, CURRENT_DATE - 42, 'delivered'),
+    (2, CURRENT_DATE - 40, 'delivered'),
+    (3, CURRENT_DATE - 38, 'delivered'),
+    (4, CURRENT_DATE - 36, 'delivered'),
+    (5, CURRENT_DATE - 34, 'delivered'),
+    (6, CURRENT_DATE - 32, 'delivered'),
+    (7, CURRENT_DATE - 30, 'delivered'),
+    (8, CURRENT_DATE - 28, 'delivered'),
+    (1, CURRENT_DATE - 26, 'delivered'),
+    (2, CURRENT_DATE - 24, 'delivered'),
+    (3, CURRENT_DATE - 22, 'cancelled'),
+    (4, CURRENT_DATE - 20, 'delivered'),
+    (5, CURRENT_DATE - 18, 'delivered'),
+    (6, CURRENT_DATE - 16, 'delivered'),
+    (7, CURRENT_DATE - 14, 'delivered'),
+    (8, CURRENT_DATE - 12, 'shipped'),
+    (1, CURRENT_DATE - 10, 'delivered'),
+    (2, CURRENT_DATE - 8, 'shipped'),
+    (3, CURRENT_DATE - 6, 'pending'),
+    (4, CURRENT_DATE - 4, 'shipped'),
+    (5, CURRENT_DATE - 2, 'pending'),
+    (1, CURRENT_DATE - 0, 'returned');
+
+-- Products 14 and 15 have no orders, also useful on Day 3.
+-- Order 30: customer 1 returns one Sauvage 100 ml from order 1.
+-- Negative quantity records the refund; unit_price stays positive (1800 GHS).
+-- Linking returns explicitly to original items is a future design improvement.
+INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
+    (1, 1, 2, 1800.00),
+    (2, 2, 1, 2200.00),
+    (3, 3, 1, 1950.00),
+    (3, 8, 1, 450.00),
+    (4, 4, 1, 1650.00),
+    (5, 5, 2, 1200.00),
+    (6, 6, 1, 1450.00),
+    (6, 8, 1, 450.00),
+    (7, 7, 1, 4200.00),
+    (8, 8, 1, 450.00),
+    (9, 9, 1, 650.00),
+    (9, 8, 1, 450.00),
+    (10, 10, 2, 550.00),
+    (11, 11, 1, 1300.00),
+    (12, 12, 1, 1850.00),
+    (12, 8, 1, 450.00),
+    (13, 13, 1, 1100.00),
+    (14, 1, 1, 1800.00),
+    (15, 2, 2, 2200.00),
+    (15, 8, 1, 450.00),
+    (16, 3, 1, 1950.00),
+    (17, 4, 1, 1650.00),
+    (18, 5, 1, 1200.00),
+    (18, 8, 1, 450.00),
+    (19, 6, 1, 1450.00),
+    (20, 7, 2, 4200.00),
+    (21, 8, 1, 450.00),
+    (21, 10, 1, 550.00),
+    (22, 9, 1, 650.00),
+    (23, 10, 1, 550.00),
+    (24, 11, 1, 1300.00),
+    (24, 8, 1, 450.00),
+    (25, 12, 2, 1850.00),
+    (26, 13, 1, 1100.00),
+    (27, 1, 1, 1800.00),
+    (27, 8, 1, 450.00),
+    (28, 2, 1, 2200.00),
+    (29, 3, 1, 1950.00),
+    (30, 1, -1, 1800.00);
+
+COMMIT;
