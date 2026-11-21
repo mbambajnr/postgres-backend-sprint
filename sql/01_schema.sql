@@ -1,10 +1,3 @@
--- Day 1: run this in a new, empty perfume_shop database.
--- All money amounts are Ghana cedis (GHS).
--- Primary keys identify rows. Foreign keys and stronger constraints come on Day 3.
--- BIGSERIAL gives each new row an ID automatically.
--- VARCHAR(n) stores text up to n characters; INTEGER and BIGINT store whole numbers.
--- NUMERIC(10, 2) stores prices with two decimal places. DATE stores a calendar date.
--- BEGIN and COMMIT keep this setup together: either all tables are created or none are.
 BEGIN;
 
 CREATE TABLE customers (
@@ -16,7 +9,6 @@ CREATE TABLE customers (
     created_at DATE DEFAULT CURRENT_DATE
 );
 
--- Each brand/name/size/concentration combination is a separate product.
 CREATE TABLE products (
     product_id BIGSERIAL PRIMARY KEY,
     name VARCHAR(120),
@@ -39,7 +31,6 @@ CREATE TABLE order_items (
     order_id BIGINT,
     product_id BIGINT,
     quantity INTEGER,
-    -- Save the price charged, so later product price changes do not change history.
     unit_price NUMERIC(10, 2)
 );
 

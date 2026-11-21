@@ -1,11 +1,6 @@
--- Day 1 sample data. Fictional customers; illustrative prices in GHS.
--- Run ONCE after 01_schema.sql in a fresh database: item IDs assume this insert order.
--- Relative dates keep the last-30-days query useful whenever setup runs.
 BEGIN;
 
--- Intentional missing email: customer 5.
--- Intentional duplicate person: customers 1 and 10 share name and email.
--- Different primary keys keep these as separate rows for the Day 3 cleanup exercise.
+-- Customer 5 has no email; customer 10 duplicates customer 1.
 INSERT INTO customers (first_name, last_name, email, city, created_at) VALUES
     ('Ama', 'Mensah', 'ama.mensah@example.com', 'Accra', CURRENT_DATE - 100),
     ('Kwame', 'Boateng', 'kwame.boateng@example.com', 'Kumasi', CURRENT_DATE - 95),
@@ -35,7 +30,6 @@ INSERT INTO products (name, brand, concentration, size_ml, price, stock_quantity
     ('No. 5', 'Chanel', 'Eau de Parfum', 100, 2350.00, 7),
     ('Yara', 'Lattafa', 'Eau de Parfum', 100, 400.00, 28);
 
--- Customers 9 and 10 have no orders, useful for the Day 3 LEFT JOIN exercise.
 INSERT INTO orders (customer_id, order_date, status) VALUES
     (1, CURRENT_DATE - 65, 'delivered'),
     (2, CURRENT_DATE - 56, 'delivered'),
@@ -68,10 +62,7 @@ INSERT INTO orders (customer_id, order_date, status) VALUES
     (5, CURRENT_DATE - 2, 'pending'),
     (1, CURRENT_DATE - 0, 'returned');
 
--- Products 14 and 15 have no orders, also useful on Day 3.
--- Order 30: customer 1 returns one Sauvage 100 ml from order 1.
--- Negative quantity records the refund; unit_price stays positive (1800 GHS).
--- Linking returns explicitly to original items is a future design improvement.
+-- Order 30 is a return with quantity -1.
 INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
     (1, 1, 2, 1800.00),
     (2, 2, 1, 2200.00),
