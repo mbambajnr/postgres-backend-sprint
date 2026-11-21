@@ -1,6 +1,10 @@
 -- Day 1: run this in a new, empty perfume_shop database.
 -- All money amounts are Ghana cedis (GHS).
 -- Primary keys identify rows. Foreign keys and stronger constraints come on Day 3.
+-- BIGSERIAL gives each new row an ID automatically.
+-- VARCHAR(n) stores text up to n characters; INTEGER and BIGINT store whole numbers.
+-- NUMERIC(10, 2) stores prices with two decimal places. DATE stores a calendar date.
+-- BEGIN and COMMIT keep this setup together: either all tables are created or none are.
 BEGIN;
 
 CREATE TABLE customers (

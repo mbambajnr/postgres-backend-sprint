@@ -1,6 +1,7 @@
--- Day 1: five independent filtering queries resembling API requests.
--- Values below are examples. A real backend should bind request values as parameters.
--- Every query uses ORDER BY for stable pagination, plus LIMIT and OFFSET.
+-- Day 1: five queries a perfume shop website could use.
+-- The URLs are examples to explain the purpose; there is no API server in this project.
+-- LIMIT 5 shows up to five rows. OFFSET 0 skips none. OFFSET 5 skips the first five.
+-- ORDER BY keeps the results in a clear, repeatable order.
 -- With LIMIT 5: OFFSET 0 = page 1, OFFSET 5 = page 2, OFFSET 10 = page 3.
 
 -- 1. GET /customers/1/orders?limit=5&offset=0

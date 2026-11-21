@@ -61,13 +61,15 @@ The required messy data includes one missing email, one duplicated customer, and
 
 Dates are relative to the setup date. The recent-orders filter includes today and the preceding 29 calendar dates. Change OFFSET from 0 to 5 to request the second page when LIMIT is 5.
 
-### Learning notes to complete after practice
+### Day 1 notes
 
-- Explain in your own words why an order needs separate item rows.
-- Try a different customer ID, search term and page offset.
-- Describe what happened when you switched between the shell and psql.
+The main idea is to keep customers, perfumes and orders in separate tables, then use IDs to connect them. An order needs item rows because a customer can buy several different perfumes at once.
 
-These prompts are intentionally unfinished rather than inventing personal learning claims. The implementation was prepared with assistant help and follows the written brief; a full review of the course video is still pending.
+A setup challenge was telling the Terminal prompt from the PostgreSQL prompt. Commands such as `psql` run in Terminal; SQL runs inside PostgreSQL. Password setup was another challenge: typing a password at the SQL prompt does not set it; `\password mac` starts the password-change prompt.
+
+To practise next: change the customer ID in query 1, search for another perfume in query 2, and change query 3 to `OFFSET 5` to see the next page.
+
+These files were prepared with assistant help using the written assignment. A full review of the course video is still pending. Days 2 and 3 learning notes will be added when that work is done.
 
 ## Day 2: pending
 
