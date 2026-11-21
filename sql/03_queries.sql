@@ -1,34 +1,34 @@
 -- 1. Orders for customer 1
-SELECT order_id, customer_id, order_date, status
+SELECT *
 FROM orders
 WHERE customer_id = 1
-ORDER BY order_date DESC, order_id DESC
+ORDER BY order_id DESC
 LIMIT 5 OFFSET 0;
 
 -- 2. Search for Sauvage
-SELECT product_id, name, brand, size_ml, price
+SELECT *
 FROM products
 WHERE name ILIKE '%sauvage%'
-ORDER BY price ASC, product_id ASC
+ORDER BY product_id
 LIMIT 5 OFFSET 0;
 
--- 3. Orders from the last 30 days
-SELECT order_id, customer_id, order_date, status
+-- 3. Orders placed in November 2026
+SELECT *
 FROM orders
-WHERE order_date BETWEEN CURRENT_DATE - 29 AND CURRENT_DATE
-ORDER BY order_date DESC, order_id DESC
+WHERE order_date BETWEEN '2026-11-01' AND '2026-11-30'
+ORDER BY order_id DESC
 LIMIT 5 OFFSET 0;
 
--- 4. Lattafa and Armaf perfumes costing up to GHS 700
-SELECT product_id, name, brand, price
+-- 4. Lattafa or Armaf perfumes costing up to GHS 700
+SELECT *
 FROM products
 WHERE brand IN ('Lattafa', 'Armaf') AND price <= 700
-ORDER BY price ASC, product_id ASC
+ORDER BY product_id
 LIMIT 5 OFFSET 0;
 
 -- 5. Different brands starting with C or L
 SELECT DISTINCT brand
 FROM products
 WHERE brand LIKE 'C%' OR brand LIKE 'L%'
-ORDER BY brand ASC
+ORDER BY brand
 LIMIT 5 OFFSET 0;

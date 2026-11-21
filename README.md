@@ -1,23 +1,23 @@
 # Perfume Shop Database
 
-A PostgreSQL practice project for a small perfume shop. This is the Day 1 work.
+Day 1 of a PostgreSQL assignment: a small perfume shop database.
 
 ## Files
 
-- `sql/01_schema.sql` creates the four tables.
-- `sql/02_seed.sql` adds 10 customers, 15 perfumes, 30 orders and 39 order items.
-- `sql/03_queries.sql` contains five filtering queries.
-- `notes/design_decisions.md` explains the sample data and table choices.
+- `sql/01_schema.sql`: creates the four tables.
+- `sql/02_seed.sql`: adds 10 customers, 15 perfumes, 30 orders and 39 order items.
+- `sql/03_queries.sql`: five filtering queries with pagination.
+- `notes/design_decisions.md`: explains the table choices and intentional data issues.
 
 ## Setup
 
-Start PostgreSQL, then open Terminal in this repository folder. Connect using your PostgreSQL username (`mac` on my setup):
+Start PostgreSQL and open Terminal in this repository folder. Replace `mac` with your PostgreSQL username if needed.
 
 ```sh
 psql -U mac -d postgres
 ```
 
-Inside PostgreSQL, create and connect to a new database:
+Inside PostgreSQL, run:
 
 ```sql
 CREATE DATABASE perfume_shop;
@@ -30,33 +30,28 @@ CREATE DATABASE perfume_shop;
 \i sql/03_queries.sql
 ```
 
-Run the schema and seed files only once in an empty database. On this Mac, `perfume_shop` is already set up, so skip creation and loading. Connect with `psql -U mac -d perfume_shop` and run the queries.
+The schema and seed files should each run once in a new, empty database. If a database called `perfume_shop` already contains an earlier version, use a different database name for a fresh setup.
 
 ## Tables
 
-- `customers`: customer names, emails and cities.
-- `products`: perfume names, brands, sizes, concentrations, prices and stock.
-- `orders`: the customer, date and status of each order.
-- `order_items`: the perfumes, quantities and prices in each order.
+Customers place orders. Products are the perfumes for sale. Order items record which perfumes are in an order, how many were bought and the price charged. One order can have several items.
 
-An order can contain several perfumes, so it needs separate order items. All prices are sample amounts in Ghana cedis (GHS).
+IDs are entered as whole numbers in the sample data. Primary keys and other constraints will be added on Day 3. Prices are sample amounts in Ghana cedis (GHS).
 
-## Day 1 queries
+## Queries
 
-1. Orders for customer 1.
-2. Perfumes with “Sauvage” in the name.
-3. Orders from the last 30 days.
-4. Lattafa or Armaf perfumes costing up to GHS 700.
-5. A list of different brands starting with C or L.
+The five queries find a customer's orders, search for a perfume, filter orders by date, filter products by brand and price, and list matching brands. These could support order history, product search and brand filters on a shop website.
 
-Each query uses `LIMIT 5 OFFSET 0`. To see the second page, change it to `LIMIT 5 OFFSET 5`. Orders use dates relative to the day the seed file runs. The last-30-days query includes today and the previous 29 days.
+`LIMIT 5` shows up to five rows. `OFFSET 0` starts at the first row. Change it to `OFFSET 5` for the next page.
+
+The sample dates are fixed in September to November 2026. Query 3 uses November 2026 so its results do not depend on when the reviewer runs it.
 
 ## Day 1 notes
 
-Separating orders from order items lets one order contain different perfumes. `WHERE` filters rows, and `ORDER BY` sorts the results. `LIKE` matches case, while `ILIKE` ignores case.
+An order needs separate item rows because a customer can buy several perfumes at once. `WHERE` filters the rows, `ORDER BY` sorts them, and `DISTINCT` removes repeated values from the results. `LIKE` is case-sensitive; `ILIKE` ignores case.
 
-A setup challenge was mixing up Terminal commands and PostgreSQL commands. Another was setting the password: the password must be entered after running `\password mac`, rather than typed as SQL.
+One setup challenge was mixing up Terminal commands with SQL commands. Another was setting a password: it must be entered after running `\password mac`, rather than typed directly at the SQL prompt.
 
-The missing email, duplicate customer and negative quantity are intentional, as required by the assignment. More constraints and data cleanup will be added on Day 3. Days 2 and 3 are not completed yet.
+The seed file deliberately includes a missing email, a duplicate customer and a return with a negative quantity. These will be used in the later tasks. Days 2 and 3 are still pending.
 
-Prepared with AI assistance from the written assignment. The full video has not yet been reviewed.
+
