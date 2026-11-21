@@ -1,84 +1,62 @@
-# Perfume shop: PostgreSQL backend sprint
+# Perfume Shop Database
 
-A three-day SQL practice project for a small perfume shop. Day 1 is implemented and tested. Days 2 and 3 are pending.
+A PostgreSQL practice project for a small perfume shop. This is the Day 1 work.
 
 ## Files
 
-- `sql/01_schema.sql`: four tables and their column types.
-- `sql/02_seed.sql`: 10 customers, 15 perfumes, 30 orders and 39 order items.
-- `sql/03_queries.sql`: five paginated filtering queries.
-- `notes/design_decisions.md`: table choices, deliberate messy rows and later work.
+- `sql/01_schema.sql` creates the four tables.
+- `sql/02_seed.sql` adds 10 customers, 15 perfumes, 30 orders and 39 order items.
+- `sql/03_queries.sql` contains five filtering queries.
+- `notes/design_decisions.md` explains the sample data and table choices.
 
-## Run from a new installation
+## Setup
 
-Requires a running PostgreSQL server and `psql` on PATH. PostgreSQL 19 was used for validation.
-
-In Terminal, change into this repository folder. Use your PostgreSQL username in place of `mac` if different.
+Start PostgreSQL, then open Terminal in this repository folder. Connect using your PostgreSQL username (`mac` on my setup):
 
 ```sh
-psql -U mac -d postgres -c 'CREATE DATABASE perfume_shop;'
-psql -U mac -d perfume_shop -v ON_ERROR_STOP=1 -f sql/01_schema.sql
-psql -U mac -d perfume_shop -v ON_ERROR_STOP=1 -f sql/02_seed.sql
-psql -U mac -d perfume_shop -v ON_ERROR_STOP=1 -f sql/03_queries.sql
+psql -U mac -d postgres
 ```
 
-The schema and seed scripts are for a fresh database and should each run once. Each uses a transaction. Do not rerun the seed against a populated database: relationships assume the initial generated IDs.
-
-**On the Mac where this project was prepared, the perfume_shop database has already been created and loaded.** Connect directly:
-
-```sh
-psql -U mac -d perfume_shop
-```
-
-Inside psql:
-
-```text
-\dt
-\d customers
-```
+Inside PostgreSQL, create and connect to a new database:
 
 ```sql
-SELECT * FROM products ORDER BY product_id;
+CREATE DATABASE perfume_shop;
 ```
-
-Exit with `\q`. SQL commands end with a semicolon; psql commands such as `\dt` do not need one. Run shell commands at the Terminal prompt, not at `perfume_shop=#`.
-
-Local socket connections here use local authentication. Connecting with `-h localhost` uses TCP and requires the password configured for the role. Never commit database passwords.
-
-## Table design
 
 ```text
-customers -> orders -> order_items <- products
+\c perfume_shop
+\i sql/01_schema.sql
+\i sql/02_seed.sql
+\i sql/03_queries.sql
 ```
 
-One order has multiple item rows. Items keep the quantity and price charged for each perfume. Product price changes therefore do not rewrite order history. Day 1 uses primary keys; foreign keys and additional integrity rules are added during Day 3.
+Run the schema and seed files only once in an empty database. On this Mac, `perfume_shop` is already set up, so skip creation and loading. Connect with `psql -U mac -d perfume_shop` and run the queries.
 
-## Day 1: setup and querying
+## Tables
 
-The queries cover SELECT, ORDER BY, DISTINCT, WHERE, AND/OR, comparisons, LIMIT/OFFSET, IN, BETWEEN and LIKE/ILIKE. Each query includes a sample endpoint in a comment; no HTTP API is implemented.
+- `customers`: customer names, emails and cities.
+- `products`: perfume names, brands, sizes, concentrations, prices and stock.
+- `orders`: the customer, date and status of each order.
+- `order_items`: the perfumes, quantities and prices in each order.
 
-The required messy data includes one missing email, one duplicated customer, and a return with quantity -1. These are deliberate exercise cases. Customers 9 and 10 and products 14 and 15 have no orders, giving later LEFT JOIN exercises meaningful results.
+An order can contain several perfumes, so it needs separate order items. All prices are sample amounts in Ghana cedis (GHS).
 
-Dates are relative to the setup date. The recent-orders filter includes today and the preceding 29 calendar dates. Change OFFSET from 0 to 5 to request the second page when LIMIT is 5.
+## Day 1 queries
 
-### Day 1 notes
+1. Orders for customer 1.
+2. Perfumes with “Sauvage” in the name.
+3. Orders from the last 30 days.
+4. Lattafa or Armaf perfumes costing up to GHS 700.
+5. A list of different brands starting with C or L.
 
-The main idea is to keep customers, perfumes and orders in separate tables, then use IDs to connect them. An order needs item rows because a customer can buy several different perfumes at once.
+Each query uses `LIMIT 5 OFFSET 0`. To see the second page, change it to `LIMIT 5 OFFSET 5`. Orders use dates relative to the day the seed file runs. The last-30-days query includes today and the previous 29 days.
 
-A setup challenge was telling the Terminal prompt from the PostgreSQL prompt. Commands such as `psql` run in Terminal; SQL runs inside PostgreSQL. Password setup was another challenge: typing a password at the SQL prompt does not set it; `\password mac` starts the password-change prompt.
+## Day 1 notes
 
-To practise next: change the customer ID in query 1, search for another perfume in query 2, and change query 3 to `OFFSET 5` to see the next page.
+Separating orders from order items lets one order contain different perfumes. `WHERE` filters rows, and `ORDER BY` sorts the results. `LIKE` matches case, while `ILIKE` ignores case.
 
-These files were prepared with assistant help using the written assignment. A full review of the course video is still pending. Days 2 and 3 learning notes will be added when that work is done.
+A setup challenge was mixing up Terminal commands and PostgreSQL commands. Another was setting the password: the password must be entered after running `\password mac`, rather than typed as SQL.
 
-## Day 2: pending
+The missing email, duplicate customer and negative quantity are intentional, as required by the assignment. More constraints and data cleanup will be added on Day 3. Days 2 and 3 are not completed yet.
 
-Revenue reports, aggregation, dates, safe NULL handling and a documented return policy.
-
-## Day 3: pending
-
-Data cleanup, stronger constraints, upsert, joins and a CSV export.
-
-## GitHub submission
-
-This is a local repository. A GitHub remote must still be created and the commits pushed before submitting the repository link.
+Prepared with AI assistance from the written assignment. The full video has not yet been reviewed.

@@ -1,5 +1,3 @@
-BEGIN;
-
 -- Customer 5 has no email; customer 10 duplicates customer 1.
 INSERT INTO customers (first_name, last_name, email, city, created_at) VALUES
     ('Ama', 'Mensah', 'ama.mensah@example.com', 'Accra', CURRENT_DATE - 100),
@@ -103,5 +101,3 @@ INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
     (28, 2, 1, 2200.00),
     (29, 3, 1, 1950.00),
     (30, 1, -1, 1800.00);
-
-COMMIT;

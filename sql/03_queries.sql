@@ -6,7 +6,7 @@ ORDER BY order_date DESC, order_id DESC
 LIMIT 5 OFFSET 0;
 
 -- 2. Search for Sauvage
-SELECT product_id, name, brand, concentration, size_ml, price
+SELECT product_id, name, brand, size_ml, price
 FROM products
 WHERE name ILIKE '%sauvage%'
 ORDER BY price ASC, product_id ASC
@@ -20,7 +20,7 @@ ORDER BY order_date DESC, order_id DESC
 LIMIT 5 OFFSET 0;
 
 -- 4. Lattafa and Armaf perfumes costing up to GHS 700
-SELECT product_id, name, brand, size_ml, price, stock_quantity
+SELECT product_id, name, brand, price
 FROM products
 WHERE brand IN ('Lattafa', 'Armaf') AND price <= 700
 ORDER BY price ASC, product_id ASC

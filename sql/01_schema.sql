@@ -1,7 +1,5 @@
-BEGIN;
-
 CREATE TABLE customers (
-    customer_id BIGSERIAL PRIMARY KEY,
+    customer_id SERIAL PRIMARY KEY,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     email VARCHAR(254),
@@ -10,7 +8,7 @@ CREATE TABLE customers (
 );
 
 CREATE TABLE products (
-    product_id BIGSERIAL PRIMARY KEY,
+    product_id SERIAL PRIMARY KEY,
     name VARCHAR(120),
     brand VARCHAR(80),
     concentration VARCHAR(30),
@@ -20,18 +18,16 @@ CREATE TABLE products (
 );
 
 CREATE TABLE orders (
-    order_id BIGSERIAL PRIMARY KEY,
-    customer_id BIGINT,
+    order_id SERIAL PRIMARY KEY,
+    customer_id INTEGER,
     order_date DATE DEFAULT CURRENT_DATE,
     status VARCHAR(20)
 );
 
 CREATE TABLE order_items (
-    order_item_id BIGSERIAL PRIMARY KEY,
-    order_id BIGINT,
-    product_id BIGINT,
+    order_item_id SERIAL PRIMARY KEY,
+    order_id INTEGER,
+    product_id INTEGER,
     quantity INTEGER,
     unit_price NUMERIC(10, 2)
 );
-
-COMMIT;
