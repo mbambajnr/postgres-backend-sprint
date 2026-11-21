@@ -55,3 +55,19 @@ One setup challenge was mixing up Terminal commands with SQL commands. Another w
 The seed file deliberately includes a missing email, a duplicate customer and a return with a negative quantity. These will be used in the later tasks. Days 2 and 3 are still pending.
 
 
+
+## Plan for the next two days
+
+These files will be added as the work is completed:
+
+| Day | File | Work |
+| --- | --- | --- |
+| 2 | `sql/04_reports.sql` | Total revenue, monthly revenue, top 5 products, average order value and return percentage. Use GROUP BY, HAVING, aggregates, ROUND, COALESCE and NULLIF. Practise intervals, EXTRACT and AGE. |
+| 2 | `notes/day2.md` | Learning notes and challenges. |
+| 3 | `sql/05_integrity.sql` | Clean the duplicate and missing data, add constraints, and write a customer upsert. |
+| 3 | `sql/06_joins.sql` | Full order details and customers or products with no orders. |
+| 3 | `sql/07_export.sql` | Export an order report to CSV. |
+| 3 | `exports/order_details.csv` | The exported report. |
+| 3 | `notes/day3.md` | Learning notes and challenges. |
+
+The design decisions file stays local and is excluded from Git. Before Day 2 reports are written, agree which order statuses count as revenue and how to calculate the share from returns.
