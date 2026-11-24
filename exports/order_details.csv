@@ -1,0 +1,40 @@
+order_id,order_date,status,first_name,last_name,perfume,size_ml,quantity,unit_price,item_total
+1,2026-09-17,delivered,Ama,Mensah,Sauvage,100,2,1800.00,3600.00
+2,2026-09-26,delivered,Kwame,Boateng,Bleu de Chanel,100,1,2200.00,2200.00
+3,2026-09-28,delivered,Abena,Owusu,Libre,90,1,1950.00,1950.00
+3,2026-09-28,delivered,Abena,Owusu,Oud for Glory,100,1,450.00,450.00
+4,2026-09-30,delivered,Kofi,Asante,La Vie Est Belle,75,1,1650.00,1650.00
+5,2026-10-02,delivered,Akosua,Addo,Eros,100,2,1200.00,2400.00
+6,2026-10-04,delivered,Yaw,Osei,Acqua di Gio,100,1,1450.00,1450.00
+6,2026-10-04,delivered,Yaw,Osei,Oud for Glory,100,1,450.00,450.00
+7,2026-10-06,delivered,Esi,Arthur,Baccarat Rouge 540,70,1,4200.00,4200.00
+8,2026-10-08,cancelled,Kojo,Appiah,Oud for Glory,100,1,450.00,450.00
+9,2026-10-10,delivered,Ama,Mensah,Club de Nuit Intense Man,105,1,650.00,650.00
+9,2026-10-10,delivered,Ama,Mensah,Oud for Glory,100,1,450.00,450.00
+10,2026-10-12,delivered,Kwame,Boateng,Khamrah,100,2,550.00,1100.00
+11,2026-10-14,delivered,Abena,Owusu,Sauvage,60,1,1300.00,1300.00
+12,2026-10-16,delivered,Kofi,Asante,Good Girl,80,1,1850.00,1850.00
+12,2026-10-16,delivered,Kofi,Asante,Oud for Glory,100,1,450.00,450.00
+13,2026-10-18,delivered,Akosua,Addo,Light Blue,100,1,1100.00,1100.00
+14,2026-10-20,delivered,Yaw,Osei,Sauvage,100,1,1800.00,1800.00
+15,2026-10-22,delivered,Esi,Arthur,Bleu de Chanel,100,2,2200.00,4400.00
+15,2026-10-22,delivered,Esi,Arthur,Oud for Glory,100,1,450.00,450.00
+16,2026-10-24,delivered,Kojo,Appiah,Libre,90,1,1950.00,1950.00
+17,2026-10-26,delivered,Ama,Mensah,La Vie Est Belle,75,1,1650.00,1650.00
+18,2026-10-28,delivered,Kwame,Boateng,Eros,100,1,1200.00,1200.00
+18,2026-10-28,delivered,Kwame,Boateng,Oud for Glory,100,1,450.00,450.00
+19,2026-10-30,cancelled,Abena,Owusu,Acqua di Gio,100,1,1450.00,1450.00
+20,2026-11-01,delivered,Kofi,Asante,Baccarat Rouge 540,70,2,4200.00,8400.00
+21,2026-11-03,delivered,Akosua,Addo,Oud for Glory,100,1,450.00,450.00
+21,2026-11-03,delivered,Akosua,Addo,Khamrah,100,1,550.00,550.00
+22,2026-11-05,delivered,Yaw,Osei,Club de Nuit Intense Man,105,1,650.00,650.00
+23,2026-11-07,delivered,Esi,Arthur,Khamrah,100,1,550.00,550.00
+24,2026-11-09,shipped,Kojo,Appiah,Sauvage,60,1,1300.00,1300.00
+24,2026-11-09,shipped,Kojo,Appiah,Oud for Glory,100,1,450.00,450.00
+25,2026-11-11,delivered,Ama,Mensah,Good Girl,80,2,1850.00,3700.00
+26,2026-11-13,shipped,Kwame,Boateng,Light Blue,100,1,1100.00,1100.00
+27,2026-11-15,pending,Abena,Owusu,Sauvage,100,1,1800.00,1800.00
+27,2026-11-15,pending,Abena,Owusu,Oud for Glory,100,1,450.00,450.00
+28,2026-11-17,shipped,Kofi,Asante,Bleu de Chanel,100,1,2200.00,2200.00
+29,2026-11-19,pending,Akosua,Addo,Libre,90,1,1950.00,1950.00
+30,2026-11-21,returned,Ama,Mensah,Sauvage,100,-1,1800.00,-1800.00
